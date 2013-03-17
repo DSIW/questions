@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["dsiw@dsiw-it.de"]
   spec.description   = %q{Ask human}
   spec.summary       = %q{Ask human}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/DSIW/questions"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
