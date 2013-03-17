@@ -44,8 +44,6 @@ answer = Question.ask "File does exist, what should be done?", [:skip, :overwrit
 answer #=> :skip
 ```
 
-# It's also possible to specify answers as an Hash:
-
 ### Hashish way
 ``` ruby
 answer = Question.ask "File does exist, what should be done?", skip: true, overwrite: false, abort: true
