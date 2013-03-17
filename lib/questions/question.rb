@@ -19,7 +19,7 @@ module Questions
   #   # s<enter>
   #   answer #=> :skip
   #
-  # It's also be able to specify answers as an Hash:
+  # It's also possible to specify answers as an Hash:
   #
   # @example Hashish way
   #   answer = Question.ask "File does exist, what should be done?", skip: true, overwrite: false, abort: true
