@@ -109,8 +109,8 @@ module Questions
     def update_indicators_for_uniqueness!
       return if has_unique_indicators?
 
-      each_with_index do |answer, i|
-        other_indicators = first(i).map(&:indicator)
+      each_with_index do |answer, num|
+        other_indicators = first(num).map(&:indicator)
         answer.indicator = AnswersHelper.free_indicator_of(answer, used_indicators: other_indicators)
       end
     end
