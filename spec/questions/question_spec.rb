@@ -29,7 +29,7 @@ describe Question do
     context "with answers" do
       before { subject.answers = answers_array }
       before do
-        subject.should_receive(:gets).with("#{question_msg} [o]verwrite, [a]bort").and_return("o")
+        UserInput.should_receive(:get).with("#{question_msg} [o]verwrite, [a]bort").and_return("o")
       end
       its(:ask) { should == :overwrite }
     end
@@ -39,34 +39,23 @@ describe Question do
     context "with answers as array" do
       subject { Question.ask(question_msg, [:all, :nothing]) }
       before do
-        Question.any_instance.should_receive(:gets).with("#{question_msg} [A]ll, [n]othing").and_return("A")
+        UserInput.should_receive(:get).with("#{question_msg} [A]ll, [n]othing").and_return("A")
       end
       it { should == :all }
     end
     context "with answers as hash" do
       subject { Question.ask(question_msg, all: true, nothing: true) }
       before do
-        Question.any_instance.should_receive(:gets).with("#{question_msg} [A]ll, [n]othing").and_return("A")
+        UserInput.should_receive(:get).with("#{question_msg} [A]ll, [n]othing").and_return("A")
       end
       it { should == :all }
     end
     context "with answers as hash with false value" do
       subject { Question.ask(question_msg, all: true, not: false, nothing: true) }
       before do
-        Question.any_instance.should_receive(:gets).with("#{question_msg} [A]ll, [n]othing").and_return("A")
+        UserInput.should_receive(:get).with("#{question_msg} [A]ll, [n]othing").and_return("A")
       end
       it { should == :all }
-    end
-  end
-
-  describe "Privates:" do
-    describe "#gets" do
-      before do
-        STDOUT.should_receive(:print).with(question_msg + " ")
-        STDOUT.should_receive(:flush)
-        STDIN.should_receive(:gets).and_return("y\n")
-      end
-      it { subject.send(:gets, question_msg).should == "y" }
     end
   end
 end

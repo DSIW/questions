@@ -66,7 +66,7 @@ module Questions
     # @return [Symbol] selected answer
     def ask
       raise "You have to set answers" if answers.empty?
-      answer = gets "#{@question} #{answers}"
+      answer = UserInput.get "#{@question} #{answers}"
       answers[answer.to_sym].instruction || ask
     end
 
@@ -90,15 +90,6 @@ module Questions
       question = Question.new(question)
       question.answers = answers
       question.ask
-    end
-
-    private
-
-    # Prints `msg` and reads user input
-    def gets msg
-      STDOUT.print("#{msg} ")
-      STDOUT.flush
-      STDIN.gets.chomp
     end
   end
 end
