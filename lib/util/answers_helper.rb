@@ -28,11 +28,11 @@ module AnswersHelper
     opts = {:used_indicators => []}.merge(opts)
     used_indicators = opts[:used_indicators]
 
-    i = 1
+    first_chars = 1
     loop do
-      indicator = answer.indicator(i)
+      indicator = answer.indicator(first_chars)
       if used_indicators.include? indicator
-        i+=1
+        first_chars += 1
         redo # next try
       else
         return indicator
