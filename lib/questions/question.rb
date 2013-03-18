@@ -65,6 +65,7 @@ module Questions
     #
     # @return [Symbol] selected answer
     def ask
+      answers = answers()
       raise "You have to set answers" if answers.empty?
       answer = UserInput.get "#{@question} #{answers}"
       answers[answer.to_sym].instruction || ask
