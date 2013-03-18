@@ -129,6 +129,7 @@ module Questions
     #   Answer.new(overwrite: false).to_s #=> ""
     def to_s
       return nil if inactive?
+      indicator = indicator()
       instruction_without_indicator = instruction.to_s[indicator.length..-1]
       humanized = instruction_without_indicator.gsub("_", " ")
       "[#{indicator}]#{humanized}"
