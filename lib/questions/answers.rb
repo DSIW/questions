@@ -79,7 +79,7 @@ module Questions
       when Array
         arg.each { |arg| self << arg } # call as Answer or Symbol
       when Hash
-        self << convert_hash_to_answers(select_symbols(arg)) # call as Array
+        self << AnswersHelper.convert_hash_to_answers(AnswersHelper.select_symbols(arg)) # call as Array
       end
       self
     end
@@ -111,7 +111,7 @@ module Questions
 
       each_with_index do |answer, i|
         other_indicators = first(i).map(&:indicator)
-        answer.indicator = free_indicator_of(answer, used_indicators: other_indicators)
+        answer.indicator = AnswersHelper.free_indicator_of(answer, used_indicators: other_indicators)
       end
     end
 
@@ -152,47 +152,6 @@ module Questions
     def to_s
       update_indicators_for_uniqueness!
       map(&:to_s).compact.join(", ")
-    end
-
-    private
-
-    # {"abc" => true, abort: true, overwrite: false} => {abort: true}
-    def select_symbols(args)
-      args.select { |inst, value| inst.is_a?(Symbol) }
-    end
-
-    # {abort: true} => [Answer.new(:abort => true)]
-    def convert_hash_to_answers(answers)
-      answers.reduce([]) { |array, (inst, value)| array << Answer.new({inst => value}) }
-    end
-
-    # :symbol => Answer.new(:symbol)
-    # Answer.new(:symbol) => Answer.new(:symbol)
-    # "string" => raise ArgumentError
-    def convert_symbol_to_answer_or_send_through(arg)
-      case arg
-      when Answer then arg
-      when Symbol then Answer.new(arg)
-      else
-        raise ArgumentError
-      end
-    end
-
-    # Gets first free indicator for `answer` which isn't used by `used_indicators`.
-    def free_indicator_of answer, opts={}
-      opts = {:used_indicators => []}.merge(opts)
-      used_indicators = opts[:used_indicators]
-
-      i = 1
-      loop do
-        indicator = answer.indicator(i)
-        if used_indicators.include? indicator
-          i+=1
-          redo # next try
-        else
-          return indicator
-        end
-      end
     end
   end
 end
