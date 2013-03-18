@@ -136,6 +136,7 @@ module Questions
     #   answers.indicators #=> [:a, :A, :ab]
     #   answers.has_unique_indicators? #=> true
     def has_unique_indicators?
+      indicators = indicators()
       indicators == indicators.uniq
     end
 
