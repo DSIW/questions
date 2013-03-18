@@ -1,6 +1,14 @@
 # encoding: utf-8
 
 module Questions
+  # Represents an answer.
+  #
+  # An answer has an indicator which will be used to detect which answer is selected by user. Indicators are the first
+  # few letters of its instruction. User can identify an
+  # indicator by its surrounded square brackets. After that the rest of the instruction will be displayed.
+  #
+  # Answers can be active or inactive. Only active ansers will be displayed, inactive ones will be hidden.
+  # Answers can be special, then the indicator is in uppercase letters set.
   class Answer
     SPECIAL_ENDINGS = [:all]
 
