@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 module Questions
+  # Answers manages many answers. Each item is a Answer object in this collection.
   class Answers < Array
     # Instantiates a new Answers object.
     #
