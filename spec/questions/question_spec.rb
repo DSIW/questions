@@ -28,10 +28,20 @@ describe Question do
 
     context "with answers" do
       before { subject.answers = answers_array }
-      before do
-        UserInput.should_receive(:get).with("#{question_msg} [o]verwrite, [a]bort").and_return("o")
+      let(:user_input) { UserInput.should_receive(:get).with("#{question_msg} [o]verwrite, [a]bort") }
+
+      context "and answered existing answer" do
+        before { user_input.and_return("o") }
+        its(:ask) { should == :overwrite }
       end
-      its(:ask) { should == :overwrite }
+
+      context "and answered missing answer" do
+        before do
+          user_input.and_return("i")
+          user_input.and_return("o")
+        end
+        its(:ask) { should == :overwrite }
+      end
     end
   end
 

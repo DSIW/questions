@@ -67,8 +67,12 @@ module Questions
     def ask
       answers = answers()
       raise "You have to set answers" if answers.empty?
-      answer = UserInput.get "#{@question} #{answers}"
-      answers[answer.to_sym].instruction || ask
+      input = UserInput.get "#{@question} #{answers}"
+      if input && answer = answers[input.to_sym]
+        answer.instruction
+      else
+        ask
+      end
     end
 
     # Asks question.
