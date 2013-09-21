@@ -1,6 +1,6 @@
 # Question
 
-Ask human a question. She or he has to select one answer.
+Ask questions to humans. Somebody has to select one of the specified answers typing the character(s) in the square brackets.
 
 ## Installation
 
@@ -12,7 +12,7 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
+Or install it via:
 
     $ gem install questions
 
@@ -53,10 +53,18 @@ answer = Question.ask "File does exist, what should be done?", skip: true, overw
 answer #=> :skip
 ```
 
+### Way with reaction
+``` ruby
+case Question.ask "Please select:", [:next, :exit]
+when :next then next
+when :exit then exit
+end
+```
+
 ## Contributing
 
 1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
+2. Create your feature branch (`git checkout -b feature-[short_description]` or `git checkout -b fix-[github_issue_number]-[short_description]`)
+3. Commit your changes (`git commit -am 'Add some feature with tests'`)
+4. Push to the branch (`git push origin [branch-name]`)
 5. Create new Pull Request
